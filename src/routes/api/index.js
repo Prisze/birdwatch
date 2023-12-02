@@ -9,11 +9,17 @@ import comments from './comments'; // Import comments routes
 const router = Router();
 
 // Basic Authentication Middleware
-router.use(
-  basicAuth({
-    users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASSWORD },
-  }),
-);
+const authMiddleware = basicAuth({
+  users: { [process.env.ADMIN_USER]: process.env.ADMIN_PASSWORD },
+});
+
+// Allow GET requests without authentication
+router.use((req, res, next) => {
+  if (req.method != 'GET') 
+    return authMiddleware(req, res, next);
+  else
+    next();
+});
 
 // Root endpoint message
 router.get('/', (req, res) => {
