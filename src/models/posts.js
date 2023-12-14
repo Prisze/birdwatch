@@ -14,7 +14,9 @@ export const getPosts = async (skip, take) => {
 };
 
 export const getPost = async (id) =>
-  db.post.findUnique({ where: { id }, include: { user: true, bird: true, comments: true } });
+  db.post.findUnique({ where: { id }, include: { user: true, bird: true, comments: {
+    include: {user: true }
+  } } });
 
 export const addPost = async (postData) =>
   db.post.create({ data: { ...postData } });
