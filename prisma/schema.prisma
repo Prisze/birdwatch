@@ -35,6 +35,7 @@ model Post {
   user        User      @relation(fields: [user_id], references: [id])
   bird        Bird      @relation(fields: [bird_id], references: [id])
   comments    Comment[]
+  image_url   String
 }
 
 model Comment {
