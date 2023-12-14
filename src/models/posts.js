@@ -6,6 +6,9 @@ export const getPosts = async (skip, take) => {
     skip,
     take,
     include: { user: true, bird: true, comments: true }, // Including related entities
+    orderBy : {
+      created_at: 'desc'
+    }
   });
   return { count, posts };
 };
