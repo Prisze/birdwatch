@@ -33,7 +33,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const post = await addPost(req.body);
+  const post = await addPost(req.body, req.user.uid);
+  console.log(post)
   res.send(post);
 });
 

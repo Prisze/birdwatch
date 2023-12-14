@@ -18,8 +18,14 @@ export const getPost = async (id) =>
     include: {user: true }
   } } });
 
-export const addPost = async (postData) =>
-  db.post.create({ data: { ...postData } });
+export const addPost = async (postData, firebase_uid) => {
+    if (firebase_uid) {
+      let user = await db.user.findUnique({where: {firebase_uid}});
+      postData.user_id = user.id;
+    }
+    console.log({ ...postData })
+    return db.post.create({ data: { ...postData } });
+  }
 
 export const updatePost = async (id, postData) => {
   const post = await getPost(id);
