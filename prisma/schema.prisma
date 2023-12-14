@@ -15,6 +15,7 @@ model User {
   created_at  DateTime  @default(now())
   posts     Post[]
   comments  Comment[]
+  firebase_uid String? @unique
 }
 
 model Bird {

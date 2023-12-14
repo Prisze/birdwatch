@@ -32,7 +32,8 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  const comment = await addComment(req.body);
+  const comment = await addComment(req.body, req.user.uid);
+  console.log(comment)
   res.send(comment);
 });
 

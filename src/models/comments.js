@@ -12,8 +12,13 @@ export const getComments = async (skip, take) => {
 export const getComment = async (id) =>
   db.comment.findUnique({ where: { id } });
 
-export const addComment = async (commentData) =>
-  db.comment.create({ data: { ...commentData } });
+export const addComment = async (commentData, firebase_uid) => {
+    if (firebase_uid) {
+      let user = await db.user.findUnique({where: {firebase_uid}});
+      commentData.user_id = user.id;
+    }
+    return db.comment.create({ data: { ...commentData } });
+  }
 
 export const updateComment = async (id, commentData) => {
   const comment = await getComment(id);
